@@ -43,20 +43,22 @@ writing JSON, replace `saveInquiry()` in `server.js` with your provider's SDK ca
 Path traversal is blocked (everything resolves inside `public/`), and responses carry
 `X-Content-Type-Options`, `X-Frame-Options` and `Referrer-Policy`.
 
-## Deploying
+## Deploying (GitHub Pages)
 
-`docs/` holds a static build of the site (relative asset paths, `.nojekyll`) and is what
-GitHub Pages serves — repo **Settings → Pages → Source: main branch, /docs folder**.
+The static site is committed to the **repo root** — that is what Pages serves
+(Settings → Pages → Source: `main`, folder `/ (root)`), live at
+<https://alenyb.github.io/gnconsulting/>. `.nojekyll` keeps Pages from running the
+repo through Jekyll and publishing this README as the homepage instead.
 
-Regenerate it after editing anything in `public/`:
+Edit files in `public/`, then regenerate the published copy before committing:
 
 ```bash
-npm run build:docs
+npm run build:pages
 ```
 
 The static build has no backend, so the contact form falls back to opening a pre-filled
 email. To have submissions actually stored, run `server.js` on a host that executes Node
-(Render, Railway, Fly) instead of, or alongside, Pages.
+(Render, Railway, Fly).
 
 ## Design notes
 
