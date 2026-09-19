@@ -1,0 +1,4 @@
+node_modules/
+data/inquiries.json
+build/
+.DS_Store

@@ -1,0 +1,85 @@
+# Gounari &amp; Nyberg — consulting site
+
+A single-page marketing site for a business-process &amp; AI consultancy, served by a
+zero-dependency Node.js server. No build step, no framework, no `npm install`.
+
+## Run it
+
+```bash
+npm start          # http://127.0.0.1:3000
+npm run dev        # same, with --watch auto-restart
+```
+
+Environment overrides: `PORT` (default `3000`), `HOST` (default `127.0.0.1` — set to
+`0.0.0.0` to expose it on your network).
+
+## Layout
+
+```
+server.js            static file server + /api/contact endpoint
+public/
+  index.html         the whole page
+  styles.css         design system (custom properties) + all components
+  app.js             theme toggle, mobile nav, scroll reveals, form submit
+  404.html           not-found page
+  favicon.svg
+  img/               founder portraits
+data/inquiries.json  contact submissions land here (created on first message)
+```
+
+## The server
+
+| Route           | Behaviour                                                        |
+| --------------- | ---------------------------------------------------------------- |
+| `GET /*`        | Static files from `public/`, with ETags and long-cache for images |
+| `POST /api/contact` | Validates and appends a submission to `data/inquiries.json`   |
+| `GET /healthz`  | `{ ok: true, uptime }`                                            |
+
+The contact endpoint validates name/email/message server-side, rate-limits to 5
+submissions per IP per 10 minutes, caps the body at 16 KB, and silently swallows
+honeypot hits. Submissions are also logged to stdout. To send real email instead of
+writing JSON, replace `saveInquiry()` in `server.js` with your provider's SDK call.
+
+Path traversal is blocked (everything resolves inside `public/`), and responses carry
+`X-Content-Type-Options`, `X-Frame-Options` and `Referrer-Policy`.
+
+## Deploying
+
+`docs/` holds a static build of the site (relative asset paths, `.nojekyll`) and is what
+GitHub Pages serves — repo **Settings → Pages → Source: main branch, /docs folder**.
+
+Regenerate it after editing anything in `public/`:
+
+```bash
+npm run build:docs
+```
+
+The static build has no backend, so the contact form falls back to opening a pre-filled
+email. To have submissions actually stored, run `server.js` on a host that executes Node
+(Render, Railway, Fly) instead of, or alongside, Pages.
+
+## Design notes
+
+Professional-services direction: light, quiet and structured — hairlines instead of
+shadows, generous white space, one accent.
+
+- **Type**: Source Serif 4 for headlines and figures, Inter for UI and body copy.
+- **Colour**: white and a cool off-white `#f5f7f9`, navy ink `#0b2545`, a single blue
+  accent `#1b4f9c`. Navy is used solid for the primary button, the featured engagement
+  tier and the footer.
+- **Light only.** There is no dark theme and no theme toggle; say the word and the
+  toggle can come back.
+- **Founder photos** sit in a square frame at the source images' own aspect ratio, so
+  faces are never cropped. Grayscale by default, full colour on hover.
+- **Engagement snapshot** in the hero is a report-style data card with illustrative
+  discovery figures — labelled as illustrative, not presented as client data.
+- **Experience strip** is plain text, not logos: McKinsey & Company, Davra, Specatron
+  and enterprise operations & C-suite.
+- **Motion**: sections fade in on scroll via `IntersectionObserver` and the snapshot
+  bars animate once; both are disabled under `prefers-reduced-motion`, with a timeout
+  fail-safe so content can never stay hidden.
+- Responsive down to 390 px: the service matrix and phase pipeline collapse to one
+  column, the nav becomes a sheet below 860 px, and the stat row restacks twice.
+
+To rebrand, change the custom properties at the top of `styles.css` — navy, accent,
+line and surface tokens drive every component.

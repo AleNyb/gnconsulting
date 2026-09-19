@@ -1,0 +1,17 @@
+{
+  "name": "gounari-nyberg-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gounari & Nyberg \u2014 Business Process & AI Consulting. Static marketing site served by a zero-dependency Node.js server.",
+  "main": "server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build:docs": "node scripts/build-docs.js"
+  },
+  "license": "UNLICENSED"
+}
