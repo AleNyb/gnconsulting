@@ -907,6 +907,9 @@ h3 {
 
 @media (max-width: 680px) {
   .shell { padding-inline: 22px; }
+  /* One credential per line — side-by-side packing reads as a jumble here. */
+  .proof-strip { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .proof-list { flex-direction: column; align-items: flex-start; gap: 11px; }
   .matrix { grid-template-columns: 1fr; }
   .pipeline { grid-template-columns: 1fr; }
   .footer-cols { grid-template-columns: 1fr 1fr; gap: 26px; }
