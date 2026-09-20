@@ -906,6 +906,15 @@ h3 {
 
 @media (max-width: 680px) {
   .shell { padding-inline: 22px; }
+  /* Phone: fill the screen with the pitch so the founder strip only shows up
+     once you start scrolling. 128px is the sticky header (72px) plus the hero's
+     top padding, which clamps to 56px at every phone width. svh is the
+     toolbars-visible height — what you actually see on first paint; the vh line
+     covers Safari and Chrome older than the small-viewport units. */
+  .hero-pitch {
+    min-height: calc(100vh - 128px);
+    min-height: calc(100svh - 128px);
+  }
   /* One credential per line — side-by-side packing reads as a jumble here. */
   .proof-strip { flex-direction: column; align-items: flex-start; gap: 16px; }
   .proof-list { flex-direction: column; align-items: flex-start; gap: 11px; }
