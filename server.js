@@ -158,7 +158,7 @@ async function handleContact(req, res) {
     console.error('[inquiry] failed to save:', err);
     return sendJson(res, 500, {
       ok: false,
-      message: 'Something went wrong on our side. Please email hello@gounarinyberg.co.'
+      message: 'Something went wrong on our side. Please email hello@gounarinyberg.com.'
     });
   }
 }
@@ -212,7 +212,8 @@ function streamFile(req, res, filePath) {
       'Content-Length': stat.size,
       ETag: etag,
       'Cache-Control': IMMUTABLE.has(ext) ? 'public, max-age=604800' : 'public, max-age=0, must-revalidate',
-      'X-Content-Type-Options': 'nosniff'
+      'X-Content-Type-Options': 'nosniff',
+      'X-Robots-Tag': 'noindex, nofollow'
     });
 
     if (req.method === 'HEAD') return res.end();
@@ -226,7 +227,11 @@ function sendError(res, status, message) {
   const notFoundPage = path.join(PUBLIC_DIR, '404.html');
   if (status === 404 && fs.existsSync(notFoundPage)) {
     const body = fs.readFileSync(notFoundPage);
-    res.writeHead(404, { 'Content-Type': MIME['.html'], 'Content-Length': body.length });
+    res.writeHead(404, {
+      'Content-Type': MIME['.html'],
+      'Content-Length': body.length,
+      'X-Robots-Tag': 'noindex, nofollow'
+    });
     return res.end(body);
   }
   res.writeHead(status, { 'Content-Type': MIME['.txt'] });

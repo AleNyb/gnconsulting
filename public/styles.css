@@ -314,18 +314,17 @@ h3 {
 .hero-founders p { margin: 0; font-size: .9rem; color: var(--muted); }
 .hero-founders strong { color: var(--ink-2); font-weight: 600; }
 
-.avatar-stack { display: flex; flex: none; }
+.avatar-stack { display: flex; flex: none; gap: 8px; }
 .avatar-stack img {
   width: 42px; height: 42px;
   border-radius: 50%;
   object-fit: cover;
   object-position: 50% 22%;
   background: var(--surface-2);
-  box-shadow: 0 0 0 2px #fff;
+  box-shadow: 0 0 0 1px var(--line);
   -webkit-filter: grayscale(1) contrast(1.02);
   filter: grayscale(1) contrast(1.02);
 }
-.avatar-stack img + img { margin-left: -12px; }
 
 /* --------------------------- snapshot card ------------------------ */
 

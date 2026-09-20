@@ -15,7 +15,11 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const SRC = path.join(ROOT, 'public');
 
-const PAGES = ['index.html', 'styles.css', 'app.js', 'favicon.svg', '404.html'];
+const PAGES = ['index.html', 'styles.css', 'app.js', 'favicon.svg', '404.html', 'robots.txt'];
+
+// Custom domain for GitHub Pages. Pages reads this file on every deploy; if it
+// goes missing the site falls back to the github.io URL and HTTPS breaks.
+const DOMAIN = 'gounarinyberg.com';
 
 for (const file of PAGES) {
   const from = path.join(SRC, file);
@@ -30,6 +34,7 @@ for (const img of fs.readdirSync(path.join(SRC, 'img'))) {
 }
 
 fs.writeFileSync(path.join(ROOT, '.nojekyll'), '');
+fs.writeFileSync(path.join(ROOT, 'CNAME'), DOMAIN + '\n');
 
 const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const absolute = html.match(/(?:src|href)="\/[^/][^"]*"/g);

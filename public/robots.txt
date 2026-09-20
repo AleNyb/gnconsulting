@@ -1,0 +1,9 @@
+# Gounari & Nyberg — intentionally kept out of search results.
+#
+# Crawling is allowed on purpose: every page carries a "noindex" meta tag
+# (and an X-Robots-Tag header when served by server.js). A "Disallow: /"
+# rule would stop crawlers from ever reading that tag, which can leave
+# bare URL-only entries in search results.
+
+User-agent: *
+Allow: /

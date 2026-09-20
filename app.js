@@ -136,7 +136,7 @@
       '',
       payload.message || ''
     ].join('\n');
-    return 'mailto:hello@gounarinyberg.co?subject=' + encodeURIComponent(subject) +
+    return 'mailto:hello@gounarinyberg.com?subject=' + encodeURIComponent(subject) +
       '&body=' + encodeURIComponent(body);
   }
 
